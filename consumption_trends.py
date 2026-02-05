@@ -281,3 +281,10 @@ if __name__ == "__main__":
     plot_yearly_consumption_per_group_bar(yearly, save_path='consumption_yearly_per_group_bar.png')
     plot_yearly_change_per_group_bar(pct_change, save_path='consumption_yearly_change_per_group_bar.png')
     plot_yearly_total_consumption_line(yearly, save_path='consumption_yearly_total_line.png')
+
+    print("Vi ser at forbruksumønsteret har endret seg siden 2021.")
+    print("Forbruket på hytter har gått ned fra 400 og stabilisert ser på 350Gwh")
+    print("Primærnæring har vert relativ stabil gjennom hele perioden")
+    print("Sekundernæring har sunket kraftig fra 9420 til 6426 og synker enda")
+    print("Tertiernæring hadde en oppgang i 2022 og senere stabilisert seg rund 2500 fra 2021")
+    print("Totalt så bruker vi mindre energi, fra 16000 Gwh til 13000 Gwh")

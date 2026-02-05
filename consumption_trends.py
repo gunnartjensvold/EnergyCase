@@ -150,13 +150,19 @@ def find_group_trends(yearly):
 
 
 def plot_yearly_consumption_per_group_bar(yearly, save_path=None):
-    """Plotter årlig forbruk per gruppe som søylediagram."""
-    yearly.plot(kind='bar', figsize=(12, 6))
-    plt.title('Årlig strømforbruk per gruppe i NO5')
-    plt.xlabel('År')
-    plt.ylabel('Forbruk (GWh)')
-    plt.legend(title='Forbrukergruppe')
-    plt.xticks(rotation=0)
+    """Plotter årlig forbruk per gruppe som søylediagram i separate subplots."""
+    groups = yearly.columns.tolist()
+    n = len(groups)
+
+    fig, axes = plt.subplots(1, n, figsize=(3 * n, 5), sharey=False)
+    fig.suptitle('Årlig strømforbruk per gruppe i NO5', fontsize=14)
+
+    for i, group in enumerate(groups):
+        axes[i].bar(yearly.index.astype(str), yearly[group])
+        axes[i].set_title(group)
+        axes[i].set_ylabel('GWh')
+        axes[i].tick_params(axis='x', rotation=45)
+
     plt.tight_layout()
     if save_path:
         plt.savefig(save_path)
@@ -164,14 +170,20 @@ def plot_yearly_consumption_per_group_bar(yearly, save_path=None):
 
 
 def plot_yearly_change_per_group_bar(pct_change, save_path=None):
-    """Plotter prosentvis endring fra år til år."""
-    pct_change.plot(kind='bar', figsize=(12, 6))
-    plt.title('Årlig prosentvis endring i strømforbruk per gruppe i NO5')
-    plt.xlabel('År')
-    plt.ylabel('Endring (%)')
-    plt.legend(title='Forbrukergruppe')
-    plt.axhline(y=0, color='black', linestyle='-', linewidth=0.5)
-    plt.xticks(rotation=0)
+    """Plotter prosentvis endring fra år til år i separate subplots."""
+    groups = pct_change.columns.tolist()
+    n = len(groups)
+
+    fig, axes = plt.subplots(1, n, figsize=(3 * n, 5), sharey=False)
+    fig.suptitle('Årlig prosentvis endring i strømforbruk per gruppe i NO5', fontsize=14)
+
+    for i, group in enumerate(groups):
+        axes[i].bar(pct_change.index.astype(str), pct_change[group])
+        axes[i].set_title(group)
+        axes[i].set_ylabel('Endring (%)')
+        axes[i].axhline(y=0, color='black', linestyle='-', linewidth=0.5)
+        axes[i].tick_params(axis='x', rotation=45)
+
     plt.tight_layout()
     if save_path:
         plt.savefig(save_path)

@@ -30,7 +30,7 @@ def merge_data(consumption, weather):
     """Kombinerer forbruks- og værdata på dato."""
     merged = consumption.join(weather[['temperatur', 'nedbor', 'vind']], how='inner')
     merged['total'] = merged[['cabin', 'household', 'primary', 'secondary', 'tertiary']].sum(axis=1)
-    # Fjerner rader der værdata mangler (NaN) for å unngå feil i analyse og modellering
+    # Fjerner rader der værdata mangler (NaN)
     merged = merged.dropna()
     return merged
 
@@ -131,3 +131,8 @@ if __name__ == "__main__":
     # Visualiser
     plot_weather_vs_total(df_merged, save_path='weather_vs_total_scatter.png')
     plot_temperature_per_group(df_merged, save_path='weather_temperature_per_group.png')
+
+    print("Andre faktorer som kan påvirke energiforbruk i tillegg til temperatur:")
+    print("Strømpris, tid på dagen, Ukedag vs Helg")
+    print("Sesongvariasjon, man bruker strøm til andre ting om sommeren enn vinter")
+    print("I nyere tid har også folk begynt å lage masse elbil, så antal elbiler på nettet er relevant")
